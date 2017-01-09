@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<configuration>
+  <generator>
+    <database>
+      <name>com.abcanthur.website.codegenhack.JPADatabase</name>
+      <properties>
+        <property>
+          <key>packages</key>
+          <value>com.abcanthur.website.models</value>
+        </property>
+      </properties>
+    </database>
+    <target>
+      <packageName>com.abcanthur.website.codegen</packageName>
+      <directory>src/main/java</directory>
+    </target>
+  </generator>
+</configuration>

@@ -1,0 +1,14 @@
+template: Hello, %s!
+defaultName: Stranger
+secretsConfigPath: secrets.yml
+jooq:
+  dialect: POSTGRES
+  logExecutedSql: yes
+  renderFormatted: yes
+database:
+  driverClass: org.postgresql.Driver
+  properties:
+    charSet: UTF-8
+  url: # SET URL HERE
+  user: # Set USER HERE
+  password: # SET PASSWORD HERE
