@@ -1,0 +1,240 @@
+<html>
+  <head>
+    <title>API Tester</title>
+    <script type="text/javascript" />
+      window.addEventListener("DOMContentLoaded", () => {
+        // const URL_ROOT = 'http://10.0.1.136:8080';
+        const URL_ROOT = 'http://localhost:8080';
+
+        let formsToEndpoint = {};
+
+        let encodeNameValuePair = (name, value) => (
+          encodeURIComponent(name) + '=' + encodeURIComponent(value)
+        );
+
+        onSubmit = e => {
+          let { method, url, args } = formsToEndpoint[e.target.id];
+          let inputs = e.target.elements;
+
+          let queryStringParams = [];
+          let formParams = [];
+          for (let i = 0; i < args.length; i++) {
+            let value = inputs[2 * i].value;
+            let checkbox = inputs[2 * i + 1];
+            if (checkbox.checked) {
+              let arg = args[i];
+              let type = arg.type;
+              if (type === 'url') {
+                url = url.replace('{' + arg.name + '}', value);
+              } else if (type === 'query') {
+                queryStringParams.push(encodeNameValuePair(arg.name, value));
+              } else if (type === 'form') {
+                formParams.push(encodeNameValuePair(arg.name, value));
+              }
+            }
+          }
+
+          if (queryStringParams.length > 0) {
+            url += '?' + queryStringParams.join('&');
+          }
+
+          let responseStatusCode = e.target.getElementsByClassName('status')[0]
+          let responseArea = e.target.getElementsByTagName('textarea')[0]
+
+          let XHR = new XMLHttpRequest();
+
+          XHR.onreadystatechange = () => {
+            if (XHR.readyState === XMLHttpRequest.DONE) {
+              responseStatusCode.innerHTML = XHR.status;
+              responseStatusCode.className = 'status status-' + XHR.status;
+              responseArea.textContent = XHR.responseText;
+            }
+          };
+
+          XHR.open(method, URL_ROOT + url);
+          if (method === "POST") {
+            formParams = formParams.join('&').replace(/%20/g, '+');
+
+            // Set correct headers
+            XHR.setRequestHeader(
+              'Content-Type', 'application/x-www-form-urlencoded');
+            XHR.setRequestHeader('Content-Length', formParams.length);
+
+            XHR.send(formParams);
+          } else {
+            XHR.send();
+          }
+
+          return false;
+        };
+
+        let html = (nodeType, children = [], attributes = {}) => {
+          let node = document.createElement(nodeType);
+          if (typeof children === 'string') {
+            node.appendChild(document.createTextNode(children));
+          } else {
+            if (!Array.isArray(children)) children = [children];
+
+            for (let i = 0; i < children.length; i++) {
+              node.appendChild(children[i]);
+            }
+          }
+
+          Object.keys(attributes).forEach(key => {
+            node.setAttribute(key, attributes[key]);
+          })
+          return node;
+        };
+
+        let testerNum = 0;
+        let buildTester = (name, method, url, args) => {
+          let form = html('form')
+
+          let header = html('h2', name);
+
+          form.appendChild(header);
+          let methodSpan = html('span', method, { class: 'method' });
+          let urlSpan = html('span', url, { class: 'url' });
+
+          form.appendChild(methodSpan);
+          form.appendChild(urlSpan);
+          for (let i = 0; i < args.length; i++) {
+            let textInput = html('input', [], { type: 'text' });
+
+            let includeOptionAttributes = args[i].type === 'url' ?
+              { style: 'display: none;' } :
+              {};
+            let includeOption = html(
+              'label',
+              [
+                html('span', 'Include?'),
+                html('input', [], { type: 'checkbox', checked: 'true' }),
+              ],
+              includeOptionAttributes
+            );
+
+            let argInput = html('div', [
+              html('span', args[i].name, { class: 'arg-name' }),
+              textInput,
+              includeOption,
+            ]);
+            argInput.className = 'inputs';
+
+            form.appendChild(argInput);
+          }
+
+          let submitButton = html('input', [], { type: 'submit' });
+          form.appendChild(submitButton);
+
+          form.appendChild(html('br'));
+
+          let responseCode = html('span', 'Response Code:');
+          let status = html('span', 'No Request Made', { class: 'status' });
+
+          form.appendChild(responseCode);
+          form.appendChild(status);
+          form.appendChild(html('br'));
+          form.appendChild(html('textarea'));
+
+
+          form.onsubmit = onSubmit;
+
+          let id = 'tester-' + (++testerNum);
+          form.setAttribute('id', id);
+          formsToEndpoint[id] = { method, url, args };
+
+          document.body.appendChild(form);
+        };
+
+        buildTester(
+          'Create Account',
+          'POST',
+          '/accounts/create',
+          [
+            { name: 'email', type: 'form' },
+            { name: 'password', type: 'form' },
+          ]
+        );
+
+        buildTester(
+          'Login',
+          'GET',
+          '/accounts/login',
+          [
+            { name: 'email', type: 'query' },
+            { name: 'password', type: 'query' },
+          ]
+        );
+      });
+    </script>
+    <style type="text/css">
+      body {
+        margin: 0 auto;
+        max-width: 400px;
+        font-family: sans-serif;
+      }
+
+      h1, h2 { text-align: center; }
+
+      .method, .url, .status, .arg-name {
+        font-family: monospace;
+        background-color: #ddd;
+        padding: 3px;
+        border: 1px solid black;
+        border-radius: 3px;
+        margin: 0px 3px;
+      }
+
+      .inputs {
+        margin: 10px 0px;
+      }
+
+      .arg-name {
+        min-width: 100px;
+        float: left;
+      }
+
+      input[type="text"] {
+        margin: 0 5px;
+        padding: 3px;
+      }
+
+      input[type="checkbox"] {
+        position: relative;
+        top: -1px;
+      }
+
+      input[type="submit"] {
+        width: 80px;
+        background-color: #ffffff;
+        border: 1px solid black;
+        border-radius: 3px;
+        margin-left: 3px;
+        margin-bottom: 5px;
+      }
+
+      input[type="submit"]:hover {
+        background-color: #eeeeee;
+      }
+
+      input[type="submit"]:active {
+        background-color: #dddddd;
+        outline: 0;
+      }
+
+      .status-200 { background-color: #4caf50; }
+      .status-400, .status-404 { background-color: #ffeb3b; }
+      .status-500 { background-color: #f44336; }
+
+      textarea {
+        margin: 10px 3px;
+        width: 100%;
+        min-height: 80px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <h1>API Tester</h1>
+  </body>
+</html>
