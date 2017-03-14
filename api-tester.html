@@ -158,11 +158,11 @@
 
         buildTester(
           'Login',
-          'GET',
+          'POST',
           '/accounts/login',
           [
-            { name: 'email', type: 'query' },
-            { name: 'password', type: 'query' },
+            { name: 'email', type: 'form' },
+            { name: 'password', type: 'form' },
           ]
         );
       });

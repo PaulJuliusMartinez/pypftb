@@ -51,44 +51,24 @@ public class AccountResource {
 			throw new WebApplicationException("Login Failed", 401); 
 		}
 		SessionsRecord session = database.selectFrom(SESSIONS)
-				.where(SESSIONS.USER_ID.equal(user.getId()))
-				.fetchOne();
-		String token = new String();
+			.where(SESSIONS.USER_ID.equal(user.getId()))
+			.fetchOne();
+
+		String token;
 		if (session == null) {
-			boolean tokenUnique = false;
-			while (!tokenUnique) {
-				String tokenTemp = generateSessionToken();
-				SessionsRecord session2 = database.selectFrom(SESSIONS)
-						.where(SESSIONS.TOKEN.equal(tokenTemp))
-						.fetchOne();
-				if (session2 == null) {
-					token = tokenTemp;
-					tokenUnique = true; 
-				}
-			}
-			database.insertInto(SESSIONS,
-					SESSIONS.USER_ID, SESSIONS.TOKEN)
-			.values(user.getId(), token);
+			token = generateSessionToken();
+			database
+				.insertInto(SESSIONS, SESSIONS.USER_ID, SESSIONS.TOKEN)
+				.values(user.getId(), token)
+				.execute();
 		} else {
-			Long thirtyDays = new Long(30 * 24 * 60 * 60 * 1000);
+			long thirtyDays = 30L * 24L * 60L * 60L * 1000L;
 			Timestamp newTS = new Timestamp(System.currentTimeMillis() + thirtyDays);
-			database.update(SESSIONS)
-			.set(SESSIONS.EXPIRES_AT, newTS)
-			.where(SESSIONS.TOKEN.equal(session.getToken()));
+			session.setExpiresAt(newTS);
+			session.update();
 			token = session.getToken();
 		}
 		return "Login Successful!     Here is your session token : " + token;
-	}
-	
-	@SET
-	@Path("/loginupdate")
-	@Produces(MediaType.TEXT_PLAIN)
-	public String create(
-			@FormParam("email") Optional<String> email,
-			@FormParam("password") Optional<String> password,
-			@Context DSLContext database
-	) {
-	
 	}
 	
 	@POST
@@ -133,9 +113,6 @@ public class AccountResource {
 		byte [] tokenBytes = new byte[32];
 		ran.nextBytes(tokenBytes);
 		String token = Base64.encodeBytes(tokenBytes);
-//		Base64.Encoder(tokenBytes);
-//		Base64.encodeBase64String( tokenBytes );
-//		String token = new String(tokenBytes,"utf-8");
 		return token;
 	}
 	
