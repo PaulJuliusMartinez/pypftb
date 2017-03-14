@@ -7,13 +7,16 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "test_table")
-public class TestTable {
+@Table(name = "users")
+public class Users {
 
-	@Id
-	int id;
-	
-	@Column(name = "one_col")
-	String oneCol;
-	
+    @Id
+    int id;
+
+    @Column(name = "email")
+    String email;
+
+    @Column(name = "password")
+    String password;
+
 }
