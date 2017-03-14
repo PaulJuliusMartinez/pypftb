@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+  <changeSet id="1" author="paul">
+    <sqlFile path="db/migrations/001U_create_users.sql" />
+    <rollback>
+      <sqlFile path="db/migrations/001D_create_users.sql" />
+    </rollback>
+  </changeSet>
+
+  <changeSet id="2" author="paul">
+    <sqlFile path="db/migrations/002U_create_sessions.sql" />
+    <rollback>
+      <sqlFile path="db/migrations/002D_create_sessions.sql" />
+    </rollback>
+  </changeSet>
+
+</databaseChangeLog>
