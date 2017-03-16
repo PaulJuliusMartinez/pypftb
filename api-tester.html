@@ -169,6 +169,13 @@
             { name: 'password', type: 'form' },
           ]
         );
+        
+        buildTester(
+          'Who Am I?',
+          'GET',
+          '/accounts/whoami',
+          []
+        );
       });
     </script>
     <style type="text/css">

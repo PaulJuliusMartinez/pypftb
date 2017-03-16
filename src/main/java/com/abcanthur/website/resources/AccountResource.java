@@ -1,8 +1,10 @@
 package com.abcanthur.website.resources;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -23,13 +25,17 @@ import com.abcanthur.website.codegen.tables.records.UsersRecord;
 
 import static com.abcanthur.website.codegen.Tables.*;
 
+import java.net.HttpCookie;
 import java.security.SecureRandom;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
 @Path("/accounts")
 public class AccountResource {
+	
+	static String COOKIE_NAME = "session-token";
 	
 	@POST
 	@Path("/login")
@@ -70,7 +76,10 @@ public class AccountResource {
 			session.update();
 			token = session.getToken();
 		}
-		return "Login Successful!     Here is your session token : " + token;
+		Cookie cookie = new Cookie(AccountResource.COOKIE_NAME, token);
+		cookie.setMaxAge(30 * 24 * 60 * 60);
+		response.addCookie(cookie);
+		return AccountResource.COOKIE_NAME + "=" + token;
 	}
 	
 	@POST
@@ -117,5 +126,37 @@ public class AccountResource {
 		String token = Base64.encodeBytes(tokenBytes);
 		return token;
 	}
+	
+	@GET
+	@Path("/whoami")
+	@Produces(MediaType.TEXT_PLAIN)
+	public String whoami(
+		@HeaderParam("Cookie") String cookie,
+		@Context DSLContext database,
+		@Context String injected
+	) {
+		System.out.println(injected);
+		String token = "No Session Token found";
+		List<HttpCookie> cookies = HttpCookie.parse(cookie);
+		for(int x = 0; x < cookies.size(); x++) {
+			if(cookies.get(x).getName().equals(AccountResource.COOKIE_NAME)) {
+				token = cookies.get(x).getValue();
+				break;
+			}
+		}
+		
+		SessionsRecord session = database.selectFrom(SESSIONS)
+				.where(SESSIONS.TOKEN.equal(token))
+				.fetchOne();
+		
+		UsersRecord user = database.selectFrom(USERS)
+				.where(USERS.ID.equal(session.getUserId()))
+				.fetchOne();
+		
+		System.out.println("Welcome to Mission Control " + user.getEmail());
+		
+		return cookie;
+	}
+
 	
 }
