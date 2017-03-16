@@ -1,5 +1,6 @@
 package com.abcanthur.website.resources;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -36,14 +37,15 @@ public class AccountResource {
 	public String login(
 			@FormParam("email") Optional<String> email,
 			@FormParam("password") Optional<String> password,
-			@Context DSLContext database
+			@Context DSLContext database,
+			@Context HttpServletResponse response
 	) {
 		if (!password.isPresent() || !email.isPresent()) {
 			throw new WebApplicationException("Login Failed", 401); 
 		}
 		UsersRecord user = database.selectFrom(USERS)
-				.where(USERS.EMAIL.equal(email.get()))
-				.fetchOne();
+			.where(USERS.EMAIL.equal(email.get()))
+			.fetchOne();
 		if (user == null) {
 			throw new WebApplicationException("Login Failed", 401);
 		}
@@ -115,6 +117,5 @@ public class AccountResource {
 		String token = Base64.encodeBytes(tokenBytes);
 		return token;
 	}
-	
 	
 }

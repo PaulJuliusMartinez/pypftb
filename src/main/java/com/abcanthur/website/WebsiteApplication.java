@@ -9,10 +9,14 @@ import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration;
 
 import org.eclipse.jetty.servlets.CrossOriginFilter;
+import org.glassfish.hk2.utilities.binding.AbstractBinder;
+import org.glassfish.jersey.process.internal.RequestScoped;
 
+import com.abcanthur.website.codegen.tables.records.UsersRecord;
 import com.abcanthur.website.health.TemplateHealthCheck;
 import com.abcanthur.website.resources.AccountResource;
 import com.abcanthur.website.resources.HelloWorldResource;
+import com.abcanthur.website.resources.injection.UserAuthenticator;
 import com.bendb.dropwizard.jooq.JooqBundle;
 import com.bendb.dropwizard.jooq.JooqFactory;
 import com.fasterxml.jackson.dataformat.yaml.snakeyaml.Yaml;
@@ -61,6 +65,14 @@ public class WebsiteApplication extends Application<WebsiteConfiguration> {
         environment.healthChecks().register("template", healthCheck);
         environment.jersey().register(resource);
         environment.jersey().register(acctResource);
+        environment.jersey().getResourceConfig().register(new AbstractBinder() {
+        	@Override
+        	protected void configure() {
+        		bindFactory(UserAuthenticator.class)
+        				.to(String.class)
+        			    .in(RequestScoped.class);
+        	}
+        });
         addCors(environment);
     }
     
