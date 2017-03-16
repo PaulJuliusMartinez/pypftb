@@ -52,13 +52,17 @@
           };
 
           XHR.open(method, URL_ROOT + url);
+
+          // Set cookie
+          XHR.withCredentials = true;
+          document.cookie = document.getElementById("cookie").value;
+
           if (method === "POST") {
             formParams = formParams.join('&').replace(/%20/g, '+');
 
             // Set correct headers
             XHR.setRequestHeader(
               'Content-Type', 'application/x-www-form-urlencoded');
-            XHR.setRequestHeader('Content-Length', formParams.length);
 
             XHR.send(formParams);
           } else {
@@ -236,5 +240,9 @@
   </head>
   <body>
     <h1>API Tester</h1>
+    <div>
+      <span class="cookie">Cookie: </span>
+      <input type="text" id="cookie" />
+    </div>
   </body>
 </html>
