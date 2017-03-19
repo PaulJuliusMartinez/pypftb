@@ -8,7 +8,6 @@ import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -17,9 +16,7 @@ import org.jooq.DSLContext;
 import org.jooq.exception.DataAccessException;
 import org.mindrot.jbcrypt.BCrypt;
 import org.postgresql.util.Base64;
-import org.postgresql.util.PSQLException;
 
-import com.abcanthur.website.codegen.Tables;
 import com.abcanthur.website.codegen.tables.records.SessionsRecord;
 import com.abcanthur.website.codegen.tables.records.UsersRecord;
 
@@ -157,6 +154,5 @@ public class AccountResource {
 		
 		return cookie;
 	}
-
 	
 }

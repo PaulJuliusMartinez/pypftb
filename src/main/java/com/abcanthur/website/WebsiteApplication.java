@@ -54,7 +54,7 @@ public class WebsiteApplication extends Application<WebsiteConfiguration> {
 
     @Override
     public void run(final WebsiteConfiguration configuration,
-                    final Environment environment) {
+                    final Environment environment) throws ClassNotFoundException {
         final HelloWorldResource resource = new HelloWorldResource(
             configuration.getTemplate(),
             configuration.getDefaultName()
@@ -65,14 +65,20 @@ public class WebsiteApplication extends Application<WebsiteConfiguration> {
         environment.healthChecks().register("template", healthCheck);
         environment.jersey().register(resource);
         environment.jersey().register(acctResource);
+
+        // Hacky way to get DB access in the UserAuthenticator
+        UserAuthenticator.jooqConfig = configuration
+			.getJooqFactory()
+			.build(environment, configuration.getDataSourceFactory(), "auth");
         environment.jersey().getResourceConfig().register(new AbstractBinder() {
         	@Override
         	protected void configure() {
         		bindFactory(UserAuthenticator.class)
         				.to(String.class)
-        			    .in(RequestScoped.class);
+						.in(RequestScoped.class);
         	}
         });
+
         addCors(environment);
     }
     
