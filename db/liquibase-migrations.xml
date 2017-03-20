@@ -19,5 +19,12 @@
       <sqlFile path="db/migrations/002D_create_sessions.sql" />
     </rollback>
   </changeSet>
+  
+  <changeSet id="3" author="peter">
+    <sqlFile path="db/migrations/003U_create_todos.sql" />
+    <rollback>
+      <sqlFile path="db/migrations/003D_create_todos.sql" />
+    </rollback>
+  </changeSet>
 
 </databaseChangeLog>
