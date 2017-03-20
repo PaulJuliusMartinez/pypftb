@@ -32,7 +32,7 @@ import java.util.Random;
 @Path("/accounts")
 public class AccountResource {
 	
-	static String COOKIE_NAME = "session-token";
+	public static String COOKIE_NAME = "session-token";
 	
 	@POST
 	@Path("/login")
@@ -127,32 +127,9 @@ public class AccountResource {
 	@GET
 	@Path("/whoami")
 	@Produces(MediaType.TEXT_PLAIN)
-	public String whoami(
-		@HeaderParam("Cookie") String cookie,
-		@Context DSLContext database,
-		@Context String injected
-	) {
-		System.out.println(injected);
-		String token = "No Session Token found";
-		List<HttpCookie> cookies = HttpCookie.parse(cookie);
-		for(int x = 0; x < cookies.size(); x++) {
-			if(cookies.get(x).getName().equals(AccountResource.COOKIE_NAME)) {
-				token = cookies.get(x).getValue();
-				break;
-			}
-		}
-		
-		SessionsRecord session = database.selectFrom(SESSIONS)
-				.where(SESSIONS.TOKEN.equal(token))
-				.fetchOne();
-		
-		UsersRecord user = database.selectFrom(USERS)
-				.where(USERS.ID.equal(session.getUserId()))
-				.fetchOne();
-		
-		System.out.println("Welcome to Mission Control " + user.getEmail());
-		
-		return cookie;
+	public String whoami(@Context UsersRecord user) {
+		if (user == null) return "no user record found";
+		return user.getEmail();	
 	}
 	
 }

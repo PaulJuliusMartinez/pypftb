@@ -10,9 +10,14 @@ import org.jooq.impl.DSL;
 
 import static com.abcanthur.website.codegen.Tables.*;
 
-import com.abcanthur.website.codegen.tables.records.UsersRecord;
+import java.net.HttpCookie;
+import java.util.List;
 
-public class UserAuthenticator implements Factory<String> {
+import com.abcanthur.website.codegen.tables.records.SessionsRecord;
+import com.abcanthur.website.codegen.tables.records.UsersRecord;
+import com.abcanthur.website.resources.AccountResource;
+
+public class UserAuthenticator implements Factory<UsersRecord> {
 
 	public static Configuration jooqConfig;
 	private final ContainerRequestContext context;
@@ -23,14 +28,36 @@ public class UserAuthenticator implements Factory<String> {
 	}
 
 	@Override
-	public String provide() {
+	public UsersRecord provide() {
 		String cookie = this.context.getHeaderString("Cookie");
 		DSLContext database = DSL.using(UserAuthenticator.jooqConfig);
-		return "lollipop";
+		
+		if (cookie == null) return null;
+		
+		String token = null;
+		List<HttpCookie> cookies = HttpCookie.parse(cookie);
+		for (int x = 0; x < cookies.size(); x++) {
+			if (cookies.get(x).getName().equals(AccountResource.COOKIE_NAME)) {
+				token = cookies.get(x).getValue();
+				break;
+			}
+		}
+		
+		if (token == null) return null;
+		
+		SessionsRecord session = database.selectFrom(SESSIONS)
+				.where(SESSIONS.TOKEN.equal(token))
+				.fetchOne();
+		
+		if (session == null) return null;
+		
+		return database.selectFrom(USERS)
+				.where(USERS.ID.equal(session.getUserId()))
+				.fetchOne();
 	}
 
 	@Override
-	public void dispose(String ur) {
+	public void dispose(UsersRecord ur) {
 		/* Empty apparently */
 	}
 

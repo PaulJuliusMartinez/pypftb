@@ -1,5 +1,3 @@
-template: Hello, %s!
-defaultName: Stranger
 secretsConfigPath: secrets.yml
 jooq:
   dialect: POSTGRES

@@ -19,14 +19,6 @@ import org.hibernate.validator.constraints.*;
 public class WebsiteConfiguration extends Configuration {
     private SecretsConfiguration secrets;
 
-    @NotEmpty private String template;
-    @JsonProperty public String getTemplate() { return template; }
-    @JsonProperty public void setTemplate(String template) { this.template = template; }
-
-    @NotEmpty private String defaultName = "Stranger";
-    @JsonProperty public String getDefaultName() { return defaultName; }
-    @JsonProperty public void setDefaultName(String name) { this.defaultName = name; }
-
     @NotEmpty private String secretsConfigPath;
     @JsonProperty public String getSecretsConfigPath() { return this.secretsConfigPath; }
     @JsonProperty public void setSecretsConfigPath(String path) { this.secretsConfigPath = path; }
