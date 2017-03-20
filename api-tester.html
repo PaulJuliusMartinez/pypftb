@@ -103,7 +103,9 @@
           form.appendChild(methodSpan);
           form.appendChild(urlSpan);
           for (let i = 0; i < args.length; i++) {
-            let textInput = html('input', [], { type: 'text' });
+            let textInput = args[i].textarea ?
+              html('textarea') :
+              html('input', [], { type: 'text' });
 
             let includeOptionAttributes = args[i].type === 'url' ?
               { style: 'display: none;' } :
