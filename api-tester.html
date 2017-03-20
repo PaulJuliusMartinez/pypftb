@@ -178,6 +178,15 @@
           '/accounts/whoami',
           []
         );
+        
+        buildTester(
+          'Create Todo',
+          'POST',
+          '/todo/create',
+          [
+            { name: 'body', type: 'form', textarea: true },
+          ]
+        );
       });
     </script>
     <style type="text/css">

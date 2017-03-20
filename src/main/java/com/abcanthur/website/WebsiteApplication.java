@@ -11,6 +11,7 @@ import org.glassfish.jersey.process.internal.RequestScoped;
 
 import com.abcanthur.website.codegen.tables.records.UsersRecord;
 import com.abcanthur.website.resources.AccountResource;
+import com.abcanthur.website.resources.TodoResource;
 import com.abcanthur.website.resources.injection.UserAuthenticator;
 import com.bendb.dropwizard.jooq.JooqBundle;
 import com.bendb.dropwizard.jooq.JooqFactory;
@@ -50,7 +51,9 @@ public class WebsiteApplication extends Application<WebsiteConfiguration> {
     public void run(final WebsiteConfiguration configuration,
                     final Environment environment) throws ClassNotFoundException {
         final AccountResource acctResource = new AccountResource();
+        final TodoResource todoResource = new TodoResource();
         environment.jersey().register(acctResource);
+        environment.jersey().register(todoResource);
 
         // Hacky way to get DB access in the UserAuthenticator
         UserAuthenticator.jooqConfig = configuration
