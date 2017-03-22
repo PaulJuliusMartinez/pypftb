@@ -17,8 +17,8 @@ import org.jooq.exception.DataAccessException;
 import org.mindrot.jbcrypt.BCrypt;
 import org.postgresql.util.Base64;
 
-import com.abcanthur.website.codegen.tables.records.SessionsRecord;
-import com.abcanthur.website.codegen.tables.records.UsersRecord;
+import com.abcanthur.website.codegen.tables.records.SessionRecord;
+import com.abcanthur.website.codegen.tables.records.UserRecord;
 
 import static com.abcanthur.website.codegen.Tables.*;
 
@@ -46,7 +46,7 @@ public class AccountResource {
 		if (!password.isPresent() || !email.isPresent()) {
 			throw new WebApplicationException("Login Failed", 401); 
 		}
-		UsersRecord user = database.selectFrom(USERS)
+		UserRecord user = database.selectFrom(USERS)
 			.where(USERS.EMAIL.equal(email.get()))
 			.fetchOne();
 		if (user == null) {
@@ -55,7 +55,7 @@ public class AccountResource {
 		if (!BCrypt.checkpw(password.get(), user.getPassword())) {
 			throw new WebApplicationException("Login Failed", 401); 
 		}
-		SessionsRecord session = database.selectFrom(SESSIONS)
+		SessionRecord session = database.selectFrom(SESSIONS)
 			.where(SESSIONS.USER_ID.equal(user.getId()))
 			.fetchOne();
 
@@ -127,7 +127,7 @@ public class AccountResource {
 	@GET
 	@Path("/whoami")
 	@Produces(MediaType.TEXT_PLAIN)
-	public String whoami(@Context UsersRecord user) {
+	public String whoami(@Context UserRecord user) {
 		if (user == null) return "no user record found";
 		return user.getEmail();	
 	}

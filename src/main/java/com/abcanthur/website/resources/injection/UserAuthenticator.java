@@ -13,11 +13,11 @@ import static com.abcanthur.website.codegen.Tables.*;
 import java.net.HttpCookie;
 import java.util.List;
 
-import com.abcanthur.website.codegen.tables.records.SessionsRecord;
-import com.abcanthur.website.codegen.tables.records.UsersRecord;
+import com.abcanthur.website.codegen.tables.records.SessionRecord;
+import com.abcanthur.website.codegen.tables.records.UserRecord;
 import com.abcanthur.website.resources.AccountResource;
 
-public class UserAuthenticator implements Factory<UsersRecord> {
+public class UserAuthenticator implements Factory<UserRecord> {
 
 	public static Configuration jooqConfig;
 	private final ContainerRequestContext context;
@@ -28,7 +28,7 @@ public class UserAuthenticator implements Factory<UsersRecord> {
 	}
 
 	@Override
-	public UsersRecord provide() {
+	public UserRecord provide() {
 		String cookie = this.context.getHeaderString("Cookie");
 		DSLContext database = DSL.using(UserAuthenticator.jooqConfig);
 		
@@ -45,7 +45,7 @@ public class UserAuthenticator implements Factory<UsersRecord> {
 		
 		if (token == null) return null;
 		
-		SessionsRecord session = database.selectFrom(SESSIONS)
+		SessionRecord session = database.selectFrom(SESSIONS)
 				.where(SESSIONS.TOKEN.equal(token))
 				.fetchOne();
 		
@@ -57,7 +57,7 @@ public class UserAuthenticator implements Factory<UsersRecord> {
 	}
 
 	@Override
-	public void dispose(UsersRecord ur) {
+	public void dispose(UserRecord ur) {
 		/* Empty apparently */
 	}
 

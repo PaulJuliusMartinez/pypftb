@@ -19,5 +19,9 @@
     <generate>
       <pojos>true</pojos>
     </generate>
+    <!--  Strategies! -->
+    <strategy>
+      <name>com.abcanthur.website.codegenhack.DepluralizeTableNameStrategy</name>
+    </strategy>
   </generator>
 </configuration>

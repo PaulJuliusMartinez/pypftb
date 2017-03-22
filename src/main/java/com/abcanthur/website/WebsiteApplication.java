@@ -9,7 +9,7 @@ import org.eclipse.jetty.servlets.CrossOriginFilter;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import org.glassfish.jersey.process.internal.RequestScoped;
 
-import com.abcanthur.website.codegen.tables.records.UsersRecord;
+import com.abcanthur.website.codegen.tables.records.UserRecord;
 import com.abcanthur.website.resources.AccountResource;
 import com.abcanthur.website.resources.TodoResource;
 import com.abcanthur.website.resources.injection.UserAuthenticator;
@@ -63,7 +63,7 @@ public class WebsiteApplication extends Application<WebsiteConfiguration> {
         	@Override
         	protected void configure() {
         		bindFactory(UserAuthenticator.class)
-        				.to(UsersRecord.class)
+						.to(UserRecord.class)
 						.in(RequestScoped.class);
         	}
         });

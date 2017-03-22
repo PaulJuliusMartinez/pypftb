@@ -1,7 +1,5 @@
 package com.abcanthur.website.resources;
 
-import static com.abcanthur.website.codegen.Tables.USERS;
-
 import java.util.Optional;
 
 import javax.ws.rs.FormParam;
@@ -18,8 +16,8 @@ import org.mindrot.jbcrypt.BCrypt;
 
 import static com.abcanthur.website.codegen.Tables.*;
 
-import com.abcanthur.website.codegen.tables.Todos;
-import com.abcanthur.website.codegen.tables.records.UsersRecord;
+import com.abcanthur.website.codegen.tables.Todo;
+import com.abcanthur.website.codegen.tables.records.UserRecord;
 
 //id 				serial PRIMARY KEY,
 //date_created  	timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -37,7 +35,7 @@ public class TodoResource {
 	@Produces(MediaType.TEXT_PLAIN)
 	public String create(
 			@FormParam("body") Optional<String> body,
-			@Context UsersRecord user,
+			@Context UserRecord user,
 			@Context DSLContext database
 	) {
 		if (!body.isPresent() || body.get().equals("")) throw new WebApplicationException("Please provide a todo body", 422);

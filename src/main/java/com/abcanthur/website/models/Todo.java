@@ -9,16 +9,16 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "todos")
-public class Todos {
+public class Todo {
 
     @Id
     int id;
     
     @Column(name = "date_created")
-    Date date_created;
+    Date dateCreated;
     
     @Column(name = "date_completed")
-    Date date_completed;
+    Date dateCompleted;
     
     @Column(name = "body")
     String body;
@@ -27,7 +27,7 @@ public class Todos {
     boolean completed;
     
     @Column(name = "parent_id")
-    int parent_id;
+    int parentId;
     
     @Column(name = "user_id")
     int userId;
