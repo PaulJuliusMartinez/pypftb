@@ -15,5 +15,9 @@
       <packageName>com.abcanthur.website.codegen</packageName>
       <directory>src/main/java</directory>
     </target>
+    <!--  Generation flags -->
+    <generate>
+      <pojos>true</pojos>
+    </generate>
   </generator>
 </configuration>
