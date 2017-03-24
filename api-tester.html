@@ -187,6 +187,15 @@
             { name: 'body', type: 'form', textarea: true },
           ]
         );
+        
+         buildTester(
+          'Get todo by id',
+          'GET',
+          '/todo/{id}',
+          [
+          	{name: 'id', type: 'url'},
+          ]
+        );
       });
     </script>
     <style type="text/css">

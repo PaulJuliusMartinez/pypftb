@@ -49,6 +49,9 @@ public class DepluralizeTableNameStrategy extends DefaultGeneratorStrategy {
         else if (mode == Mode.INTERFACE) {
             result.insert(0, "I");
         }
+        else if (mode == Mode.POJO) {
+        	result.append("Pojo");
+        }
 
         return result.toString();
 	}
