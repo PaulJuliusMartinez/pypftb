@@ -38,8 +38,11 @@
             url += '?' + queryStringParams.join('&');
           }
 
-          let responseStatusCode = e.target.getElementsByClassName('status')[0]
-          let responseArea = e.target.getElementsByTagName('textarea')[0]
+          let responseStatusCode = e.target.getElementsByClassName('status')[0];
+          let textAreas = e.target.getElementsByTagName('textarea');
+          let responseArea = textAreas[textAreas.length - 1];
+;
+          responseArea.textContent = "Requesting...";
 
           let XHR = new XMLHttpRequest();
 
