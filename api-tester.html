@@ -185,16 +185,32 @@
         buildTester(
           'Create Todo',
           'POST',
-          '/todo/create',
+          '/todos',
           [
             { name: 'body', type: 'form', textarea: true },
           ]
         );
         
+        buildTester(
+          'Get Todos by User',
+          'GET',
+          '/todos',
+          []
+        );
+        
          buildTester(
           'Get todo by id',
           'GET',
-          '/todo/{id}',
+          '/todos/{id}',
+          [
+          	{name: 'id', type: 'url'},
+          ]
+        );
+        
+        buildTester(
+          'Complete todo by id',
+          'POST',
+          '/todos/{id}/complete',
           [
           	{name: 'id', type: 'url'},
           ]
