@@ -80,6 +80,10 @@
         	<artifactId>jbcrypt</artifactId>
         	<version>0.3m</version>
         </dependency>
+        <dependency>
+        	<groupId>io.dropwizard</groupId>
+        	<artifactId>dropwizard-views-mustache</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

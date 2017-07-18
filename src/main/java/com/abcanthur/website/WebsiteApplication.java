@@ -11,6 +11,7 @@ import org.glassfish.jersey.process.internal.RequestScoped;
 
 import com.abcanthur.website.codegen.tables.records.UserRecord;
 import com.abcanthur.website.resources.AccountResource;
+import com.abcanthur.website.resources.DocumentResource;
 import com.abcanthur.website.resources.TodoResource;
 import com.abcanthur.website.resources.injection.UserAuthenticator;
 import com.bendb.dropwizard.jooq.JooqBundle;
@@ -20,6 +21,7 @@ import io.dropwizard.Application;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import io.dropwizard.views.ViewBundle;
 
 public class WebsiteApplication extends Application<WebsiteConfiguration> {
 
@@ -34,6 +36,7 @@ public class WebsiteApplication extends Application<WebsiteConfiguration> {
 
     @Override
     public void initialize(final Bootstrap<WebsiteConfiguration> bootstrap) {
+    	bootstrap.addBundle(new ViewBundle());
         bootstrap.addBundle(new JooqBundle<WebsiteConfiguration>() {
             @Override
             public DataSourceFactory getDataSourceFactory(WebsiteConfiguration configuration) {
@@ -52,8 +55,11 @@ public class WebsiteApplication extends Application<WebsiteConfiguration> {
                     final Environment environment) throws ClassNotFoundException {
         final AccountResource acctResource = new AccountResource();
         final TodoResource todoResource = new TodoResource();
+        final DocumentResource documentResource = new DocumentResource();
+        
         environment.jersey().register(acctResource);
         environment.jersey().register(todoResource);
+        environment.jersey().register(documentResource);
 
         // Hacky way to get DB access in the UserAuthenticator
         UserAuthenticator.jooqConfig = configuration
