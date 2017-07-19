@@ -7,6 +7,7 @@ import javax.servlet.FilterRegistration;
 
 import org.eclipse.jetty.servlets.CrossOriginFilter;
 
+import com.abcanthur.website.resources.APIResource;
 import com.abcanthur.website.resources.DocumentResource;
 import com.bendb.dropwizard.jooq.JooqBundle;
 import com.bendb.dropwizard.jooq.JooqFactory;
@@ -48,7 +49,10 @@ public class WebsiteApplication extends Application<WebsiteConfiguration> {
     public void run(final WebsiteConfiguration configuration,
                     final Environment environment) throws ClassNotFoundException {
         final DocumentResource documentResource = new DocumentResource();
+        final APIResource apiResource = new APIResource();
+        
         environment.jersey().register(documentResource);
+        environment.jersey().register(apiResource);
 
         addCors(environment);
     }

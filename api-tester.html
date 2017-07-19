@@ -156,65 +156,21 @@
         };
 
         buildTester(
-          'Create Account',
+          'Pledge to pee your pants',
           'POST',
-          '/accounts/create',
+          '/api/pledge',
           [
-            { name: 'email', type: 'form' },
-            { name: 'password', type: 'form' },
+            { name: 'name', type: 'form' },
+            { name: 'age', type: 'form' },
+            { name: 'location', type: 'form' },
+            { name: 'favoriteBrewer', type: 'form' },
+            { name: 'lastTimePeedPants', type: 'form', textarea: true },
+            { name: 'countyStadiumMemory', type: 'form', textarea: true },
+            { name: 'bestPartOfBrewersFan', type: 'form', textarea: true },
+            { name: 'email', type: 'form' }
           ]
         );
 
-        buildTester(
-          'Login',
-          'POST',
-          '/accounts/login',
-          [
-            { name: 'email', type: 'form' },
-            { name: 'password', type: 'form' },
-          ]
-        );
-        
-        buildTester(
-          'Who Am I?',
-          'GET',
-          '/accounts/whoami',
-          []
-        );
-        
-        buildTester(
-          'Create Todo',
-          'POST',
-          '/todos',
-          [
-            { name: 'body', type: 'form', textarea: true },
-          ]
-        );
-        
-        buildTester(
-          'Get Todos by User',
-          'GET',
-          '/todos',
-          []
-        );
-        
-         buildTester(
-          'Get todo by id',
-          'GET',
-          '/todos/{id}',
-          [
-          	{name: 'id', type: 'url'},
-          ]
-        );
-        
-        buildTester(
-          'Complete todo by id',
-          'POST',
-          '/todos/{id}/complete',
-          [
-          	{name: 'id', type: 'url'},
-          ]
-        );
       });
     </script>
     <style type="text/css">

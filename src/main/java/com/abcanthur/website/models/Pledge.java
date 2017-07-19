@@ -14,6 +14,9 @@ public class Pledge {
     
     @Column(name = "name")
     String name;
+    
+    @Column(name = "age")
+    Integer age;
 
     @Column(name = "location")
     String location;
@@ -21,8 +24,8 @@ public class Pledge {
     @Column(name = "favorite_brewer")
     String favoriteBrewer;
 
-    @Column(name = "last_pee_your_pants")
-    String lastPeeYourPants;
+    @Column(name = "last_time_peed_pants")
+    String lastTimePeedPants;
 
     @Column(name = "county_stadium_memory")
     String countyStadiumMemory;
