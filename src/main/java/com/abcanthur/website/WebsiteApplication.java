@@ -6,14 +6,8 @@ import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration;
 
 import org.eclipse.jetty.servlets.CrossOriginFilter;
-import org.glassfish.hk2.utilities.binding.AbstractBinder;
-import org.glassfish.jersey.process.internal.RequestScoped;
 
-import com.abcanthur.website.codegen.tables.records.UserRecord;
-import com.abcanthur.website.resources.AccountResource;
 import com.abcanthur.website.resources.DocumentResource;
-import com.abcanthur.website.resources.TodoResource;
-import com.abcanthur.website.resources.injection.UserAuthenticator;
 import com.bendb.dropwizard.jooq.JooqBundle;
 import com.bendb.dropwizard.jooq.JooqFactory;
 
@@ -53,26 +47,8 @@ public class WebsiteApplication extends Application<WebsiteConfiguration> {
     @Override
     public void run(final WebsiteConfiguration configuration,
                     final Environment environment) throws ClassNotFoundException {
-        final AccountResource acctResource = new AccountResource();
-        final TodoResource todoResource = new TodoResource();
         final DocumentResource documentResource = new DocumentResource();
-        
-        environment.jersey().register(acctResource);
-        environment.jersey().register(todoResource);
         environment.jersey().register(documentResource);
-
-        // Hacky way to get DB access in the UserAuthenticator
-        UserAuthenticator.jooqConfig = configuration
-			.getJooqFactory()
-			.build(environment, configuration.getDataSourceFactory(), "auth");
-        environment.jersey().getResourceConfig().register(new AbstractBinder() {
-        	@Override
-        	protected void configure() {
-        		bindFactory(UserAuthenticator.class)
-						.to(UserRecord.class)
-						.in(RequestScoped.class);
-        	}
-        });
 
         addCors(environment);
     }
