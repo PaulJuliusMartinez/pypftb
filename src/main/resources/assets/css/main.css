@@ -1,0 +1,43 @@
+/* Saner defaults */
+body { margin: 0; }
+html { box-sizing: border-box; }
+*, *:before, *:after { box-sizing: inherit; }
+
+img.header {
+  max-width: 100%;
+}
+
+nav {
+	text-align: center;
+}
+
+nav li {
+	display: inline-block;
+	padding: 0px 12px;
+}
+
+nav li a {
+	text-decoration: none;
+}
+
+nav li a:hover {
+    text-decoration: underline;
+}
+
+div.main {
+	display: flex;
+}
+
+div.main > div {
+	flex: 1 1 auto;
+	width: 0;
+	margin: 10px;
+}
+
+div.main img {
+	max-width: 100%;
+}
+
+#homeplate {
+	width: 50px;
+}

@@ -1,5 +1,66 @@
 {{<layout}}
-{{$content}
-  This is the home page, with data {{str}}.
+{{$content}}
+  <div class="list-container">
+    <img src="/assets/img/fielder.jpg">
+    <div class="list-count">
+      <span class="list-count-number">
+        {{totalPledges}}
+      </span>
+      <div class="list-count-text">
+        people have stepped up to the plate and pledged to pee their pants when the Brewers make the playoffs.
+      </div>
+    </div>
+    <div class="full-list-link-container">
+      <a href="/list" class="full-list-link">
+        <span class="full-list-text">
+          View the full list here.
+        </span>
+        <img id="homeplate" src="/assets/img/homeplate.jpg">
+      </a>
+    </div>
+  </div>
+
+  <div class="explanation-container">
+    The Brewers finally made the playoffs after 25 years, the longest playoff drought in baseball. Born in July 1982, I missed that amazing World Series run, but now I finally have a team to call my own. With a returning cast of young studs, shrewd management, and a new skip we're looking to return to the playoffs. I get so excited thinking about the Brewers, a little pee comes out. In fact,
+    <span class="purpose">
+      When the Brewers make the playoffs I will pee my pants.
+    </span>
+  </div>
+
+  <div class="signup-container">
+    <div class="form-header">
+      Make your pledge!
+    </div>
+    <form>
+      <label>
+        Name:
+        <input type="text" name="name"></input>
+      </label>
+      <label>
+        Location:
+        <input type="text" name="location"></input>
+      </label>
+      <label>
+        Age:
+        <input type="text" name="age"></input>
+      </label>
+      <label>
+        Favorite Brewer:
+        <input type="text" name="favoriteBrewer"></input>
+      </label>
+      <label>
+        Last Time Your Peed Your Pants:
+        <textarea name="lastTimePeedPants"></textarea>
+      </label>
+      <label>
+        County Stadium Memory:
+        <textarea name="countyStadiumMemory"></textarea>
+      </label>
+      <label>
+        Best Part of Being a Brewers Fan:
+        <textarea name="bestPartOfBrewersFan"></textarea>
+      </label>
+    </form>
+  </div>
 {{/content}}
 {{/layout}}

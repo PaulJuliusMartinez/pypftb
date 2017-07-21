@@ -13,6 +13,7 @@ import com.bendb.dropwizard.jooq.JooqBundle;
 import com.bendb.dropwizard.jooq.JooqFactory;
 
 import io.dropwizard.Application;
+import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -31,6 +32,7 @@ public class WebsiteApplication extends Application<WebsiteConfiguration> {
 
     @Override
     public void initialize(final Bootstrap<WebsiteConfiguration> bootstrap) {
+    	bootstrap.addBundle(new AssetsBundle());
     	bootstrap.addBundle(new ViewBundle());
         bootstrap.addBundle(new JooqBundle<WebsiteConfiguration>() {
             @Override
