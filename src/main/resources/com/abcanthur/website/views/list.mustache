@@ -1,50 +1,52 @@
-{{> header }}
+{{<layout}}
+{{$content}
   This is the list page.
 
-Offset: {{offset}}
-Count: {{count}}
+  Offset: {{offset}}
+  Count: {{count}}
 
 
-{{#linkToEarlierPledges}}
-  <a href="{{linkToEarlierPledges}}">
-    Earlier Pledges
-  </a>
-{{/linkToEarlierPledges}}
+  {{#linkToEarlierPledges}}
+    <a href="{{linkToEarlierPledges}}">
+      Earlier Pledges
+    </a>
+  {{/linkToEarlierPledges}}
 
-{{#linkToLaterPledges}}
-  <a href="{{linkToLaterPledges}}">
-    Later Pledges
-  </a>
-{{/linkToLaterPledges}}
+  {{#linkToLaterPledges}}
+    <a href="{{linkToLaterPledges}}">
+      Later Pledges
+    </a>
+  {{/linkToLaterPledges}}
 
-<table>
-  <thead>
-    <tr>
-      <th>Pledge #</th>
-      <th>Name</th>
-      <th>Age</th>
-      <th>Location</th>
-      <th>Favorite Brewer</th>
-      <th>Last Time You Peed Your Pants</th>
-      <th>County Stadium Memory</th>
-      <th>Best Part of Being a Brewers Fan</th>
-    </tr>
-  </thead>
+  <table>
+    <thead>
+      <tr>
+        <th>Pledge #</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Location</th>
+        <th>Favorite Brewer</th>
+        <th>Last Time You Peed Your Pants</th>
+        <th>County Stadium Memory</th>
+        <th>Best Part of Being a Brewers Fan</th>
+      </tr>
+    </thead>
 
-  <tbody>
-    {{#pledges}}
-    <tr>
-      <td>{{@index}}<td>
-      <td>{{name}</td>
-      <td>{{age}}</td>
-      <td>{{location}}</td>
-      <td>{{favoriteBrewer}}</td>
-      <td>{{lastTimePeedPants}}</td>
-      <td>{{countStadiumMemory}}</td>
-      <td>{{bestPartOfBrewersFan}}</td>
-    </tr>
-    {{/pledges}}
-  </tbody>
-</ul>
+    <tbody>
+      {{#pledges}}
+      <tr>
+        <td>{{@index}}<td>
+        <td>{{name}</td>
+        <td>{{age}}</td>
+        <td>{{location}}</td>
+        <td>{{favoriteBrewer}}</td>
+        <td>{{lastTimePeedPants}}</td>
+        <td>{{countStadiumMemory}}</td>
+        <td>{{bestPartOfBrewersFan}}</td>
+      </tr>
+      {{/pledges}}
+    </tbody>
+  </ul>
 
-{{> footer }}
+{{/content}}
+{{/layout}}
