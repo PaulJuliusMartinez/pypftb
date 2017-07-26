@@ -1,10 +1,8 @@
 {{<layout}}
-{{$content}
-  This is the list page.
-
-  Offset: {{offset}}
-  Count: {{count}}
-
+{{$styles}}
+  <link rel="stylesheet" type="text/css" href="/assets/css/list.css">
+{{/styles}}
+{{$content}}
 
   {{#linkToEarlierPledges}}
     <a href="{{linkToEarlierPledges}}">
@@ -18,7 +16,7 @@
     </a>
   {{/linkToLaterPledges}}
 
-  <table>
+  <table class="pledge-table">
     <thead>
       <tr>
         <th>Pledge #</th>
@@ -41,7 +39,7 @@
         <td>{{location}}</td>
         <td>{{favoriteBrewer}}</td>
         <td>{{lastTimePeedPants}}</td>
-        <td>{{countStadiumMemory}}</td>
+        <td>{{countyStadiumMemory}}</td>
         <td>{{bestPartOfBrewersFan}}</td>
       </tr>
       {{/pledges}}

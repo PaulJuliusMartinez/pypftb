@@ -31,7 +31,7 @@
     <div class="form-header">
       Make your pledge!
     </div>
-    <form>
+    <form id="pledge-form">
       <label>
         Name:
         <input type="text" name="name"></input>
@@ -60,6 +60,12 @@
         Best Part of Being a Brewers Fan:
         <textarea name="bestPartOfBrewersFan"></textarea>
       </label>
+      <label>
+        Email (will not be displayed pubically):
+        <input type="text" name="email"></input>
+      </label>
+      <input id="pledge-button" type="button" value="Pledge">
+      <div id="pledge-error"></div>
     </form>
   </div>
 {{/content}}
