@@ -3,8 +3,10 @@ package com.abcanthur.website.resources;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
 
 import org.jooq.DSLContext;
 import org.jooq.exception.DataAccessException;
@@ -16,6 +18,7 @@ public class APIResource {
 
 	@POST
 	@Path("/pledge")
+	@Produces(MediaType.APPLICATION_JSON)
 	public String pledge(
 		@FormParam("name") String name,
 		@FormParam("age") Integer age,
@@ -27,6 +30,7 @@ public class APIResource {
 		@FormParam("email") String email,
 		@Context DSLContext database
 	) {
+		System.out.println(name);
 		try {
 			database.insertInto(
 				PLEDGES,
@@ -49,7 +53,7 @@ public class APIResource {
 				email
 			).execute();
 		} catch (DataAccessException e) {
-			System.out.println(e.getMessage());
+			System.out.println("****" + e.getMessage() + "****");
 			throw new WebApplicationException("Unknown error", 400);
 		}
 		

@@ -54,3 +54,10 @@ To create a new model `Model`
 
 If you need to change your migration, make sure to migrate down before changing
 the `sql` files otherwise Liquibase will yell at you!
+
+
+curl
+"http://mlb.mlb.com/lookup/json/named.standings_schedule_date.bam?season=2017&sit_code=%27h0%27&league_id=103&league_id=104&all_star_sw=%27N%27"
+| jq
+'.standings_schedule_date.standings_all_date_rptr.standings_all_date[].queryResults.row[].team_full,
+.standings_schedule_date.standings_all_date_rptr.standings_all_date[].queryResults.row[].gb_wildcard'
