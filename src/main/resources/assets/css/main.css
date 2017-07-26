@@ -34,10 +34,50 @@ div.main > div {
 	margin: 10px;
 }
 
-div.main img {
+#fielder {
 	max-width: 100%;
 }
 
 #homeplate {
-	width: 50px;
+	width: 120px;
+}
+
+.list-container {
+	border: 3px solid black;
+	text-align: center;
+	position: relative;
+	padding: 6px;
+}
+
+.list-count-number {
+	position: absolute;
+	top: 10%;
+	right: 10%;
+	color: white;
+	font-size: -webkit-xxx-large;
+}
+
+.list-count-text {
+	margin-right: 60px;
+	padding: 6px;
+}
+
+.full-list-link-container {
+	position: absolute;
+	right: -60px;
+    bottom: -60px;
+}
+
+.full-list-text {
+	position: absolute;
+	width: 70%;
+	top: 20%;
+	left: 15%;
+}
+
+.explanation-container {
+	text-align: center;
+}
+.signup-container {
+	border: 3px solid black;
 }
