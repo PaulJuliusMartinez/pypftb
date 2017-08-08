@@ -8,6 +8,7 @@ let handlePledgeSubmit = e => {
   e.preventDefault();
 
   let pledgeForm = document.getElementById("pledge-form");
+  let pledgeError = document.getElementById("pledge-error");
   let formData = new FormData(pledgeForm);
 
   let urlEncodedData = "";
@@ -25,11 +26,17 @@ let handlePledgeSubmit = e => {
   req.open("POST", url, true);
 
   req.onreadystatechange = () => {
-    if (req.readyState === 4 && req.status === 400) {
-      let pledgeError = document.getElementById("pledge-error");
-      pledgeError.innerHTML = JSON.parse(req.responseText).message;
+    if (req.readyState === 4) {
+      if (req.status === 400) {
+        pledgeError.innerHTML = JSON.parse(req.responseText).message;
+      } else if (req.status === 200) {
+        window.location.href = "/list";
+      }
     }
   };
+
+  // Clear last error
+  pledgeError.innerHTML = "";
 
   req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   req.send(urlEncodedData);

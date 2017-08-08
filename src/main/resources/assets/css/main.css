@@ -3,6 +3,20 @@ body { margin: 0; }
 html { box-sizing: border-box; }
 *, *:before, *:after { box-sizing: inherit; }
 
+html {
+  --current-brewers-blue: #061829;
+  --classic-brewers-blue: #13489d;
+  --classic-brewers-blue-hover: #2179ff;
+  --classic-brewers-blue-active: #062a5f;
+  --classic-brewers-yellow: #ffd629;
+  --classic-brewers-grey: #eeeeee;
+}
+
+body {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
 img.header {
   max-width: 100%;
 }
@@ -32,52 +46,4 @@ div.main > div {
 	flex: 1 1 auto;
 	width: 0;
 	margin: 10px;
-}
-
-#fielder {
-	max-width: 100%;
-}
-
-#homeplate {
-	width: 120px;
-}
-
-.list-container {
-	border: 3px solid black;
-	text-align: center;
-	position: relative;
-	padding: 6px;
-}
-
-.list-count-number {
-	position: absolute;
-	top: 10%;
-	right: 10%;
-	color: white;
-	font-size: -webkit-xxx-large;
-}
-
-.list-count-text {
-	margin-right: 60px;
-	padding: 6px;
-}
-
-.full-list-link-container {
-	position: absolute;
-	right: -60px;
-    bottom: -60px;
-}
-
-.full-list-text {
-	position: absolute;
-	width: 70%;
-	top: 20%;
-	left: 15%;
-}
-
-.explanation-container {
-	text-align: center;
-}
-.signup-container {
-	border: 3px solid black;
 }

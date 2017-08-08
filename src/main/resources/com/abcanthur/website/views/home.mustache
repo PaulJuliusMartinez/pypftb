@@ -1,10 +1,13 @@
 {{<layout}}
+{{$styles}}
+  <link rel="stylesheet" type="text/css" href="/assets/css/home.css">
+{{/styles}}
 {{$content}}
   <div class="list-container">
     <img id="fielder" src="/assets/img/fielder.jpg">
     <div class="list-count">
       <span class="list-count-number">
-        {{totalPledges}}
+        {{pledgeCount}}
       </span>
       <div class="list-count-text">
         people have stepped up to the plate and pledged to pee their pants when the Brewers make the playoffs.
@@ -32,38 +35,39 @@
       Make your pledge!
     </div>
     <form id="pledge-form">
-      <label>
+      <label class="text-input">
         Name:
         <input type="text" name="name"></input>
       </label>
-      <label>
+      <label class="text-input">
         Location:
         <input type="text" name="location"></input>
       </label>
-      <label>
+      <label class="text-input">
         Age:
         <input type="text" name="age"></input>
       </label>
-      <label>
+      <label class="text-input">
         Favorite Brewer:
         <input type="text" name="favoriteBrewer"></input>
       </label>
-      <label>
-        Last Time Your Peed Your Pants:
+      <label class="textarea-input">
+        Last Time You Peed Your Pants:
         <textarea name="lastTimePeedPants"></textarea>
       </label>
-      <label>
+      <label class="textarea-input">
         County Stadium Memory:
         <textarea name="countyStadiumMemory"></textarea>
       </label>
-      <label>
+      <label class="textarea-input">
         Best Part of Being a Brewers Fan:
         <textarea name="bestPartOfBrewersFan"></textarea>
       </label>
-      <label>
-        Email (will not be displayed pubically):
+      <label class="text-input">
+        Email:
         <input type="text" name="email"></input>
       </label>
+      <label>(will not be displayed pubically)</label>
       <input id="pledge-button" type="button" value="Pledge">
       <div id="pledge-error"></div>
     </form>

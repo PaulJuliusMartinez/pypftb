@@ -3,12 +3,14 @@ package com.abcanthur.website.views;
 import io.dropwizard.views.View;
 
 public class HomeView extends View {
-	private String testStr;
-	public HomeView(String s) {
+	private int pledgeCount;
+	
+	public HomeView(int pledgeCount) {
 		super("home.mustache");
-		this.testStr = s;
+		this.pledgeCount = pledgeCount;
 	}
-	public String getStr() {
-		return this.testStr;
+	
+	public int getPledgeCount() {
+		return this.pledgeCount;
 	}
 }

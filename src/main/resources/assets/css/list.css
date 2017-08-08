@@ -1,9 +1,3 @@
-html {
-  --classic-brewers-blue: #13489d;
-  --classic-brewers-yellow: #ffd629;
-  --classic-brewers-grey: #eeeeee;
-}
-
 table.pledge-table {
   border-collapse: collapse;
   max-width: 100%;

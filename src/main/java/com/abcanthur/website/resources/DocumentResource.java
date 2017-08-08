@@ -30,7 +30,8 @@ public class DocumentResource {
 	@GET
 	@Produces(MediaType.TEXT_HTML)
 	public HomeView home(@Context DSLContext database) {
-		return new HomeView("This is the homepage of pyp");
+		int count = database.selectCount().from(PLEDGES).fetchOne(0, int.class);
+		return new HomeView(count);
 	}
 	
 	@GET

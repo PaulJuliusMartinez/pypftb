@@ -1,0 +1,105 @@
+#fielder {
+  max-width: 100%;
+}
+
+#homeplate {
+  width: 120px;
+}
+
+.list-container {
+  border: 3px solid black;
+  text-align: center;
+  position: relative;
+  padding: 6px;
+  align-self: flex-start;
+}
+
+.list-count-number {
+  position: absolute;
+  top: 10%;
+  right: 10%;
+  color: white;
+  font-size: -webkit-xxx-large;
+}
+
+.list-count-text {
+  margin-right: 60px;
+  padding: 6px;
+}
+
+.full-list-link-container {
+  position: absolute;
+  right: -60px;
+  bottom: -60px;
+}
+
+.full-list-text {
+  position: absolute;
+  width: 70%;
+  top: 20%;
+  left: 15%;
+}
+
+.explanation-container {
+  text-align: center;
+}
+
+.explanation-container .purpose {
+  display: block;
+  font-size: 30px;
+  margin: 36px
+}
+
+.signup-container {
+  border: 3px solid var(--current-brewers-blue);
+}
+
+.signup-container .form-header {
+  background-color: var(--current-brewers-blue);
+  font-size: 30px;
+  color: white;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#pledge-form label {
+  margin: 10px;
+}
+
+#pledge-form label.text-input {
+  display: flex;
+}
+
+#pledge-form label.textarea-input {
+  display: block;
+}
+
+#pledge-form label input {
+  margin-left: 10px;
+  flex-grow: 1;
+}
+
+#pledge-form label textarea {
+  display: block;
+  resize: vertical;
+  width: 100%;
+  min-height: 40px;
+  margin-top: 10px;
+}
+
+#pledge-button {
+  margin: 10px 10px 0px 10px;
+  width: calc(100% - 20px);
+  height: 50px;
+  background-color: var(--classic-brewers-blue);
+  color: var(--classic-brewers-yellow);
+  border: none;
+  font-size: 28px;
+  outline: none;
+}
+
+#pledge-button:hover {
+  background-color: var(--classic-brewers-blue-hover);
+}
