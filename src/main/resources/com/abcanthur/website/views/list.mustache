@@ -16,35 +16,31 @@
     </a>
   {{/linkToLaterPledges}}
 
-  <table class="pledge-table">
-    <thead>
-      <tr>
-        <th>Pledge #</th>
-        <th>Name</th>
-        <th>Age</th>
-        <th>Location</th>
-        <th>Favorite Brewer</th>
-        <th>Last Time You Peed Your Pants</th>
-        <th>County Stadium Memory</th>
-        <th>Best Part of Being a Brewers Fan</th>
-      </tr>
-    </thead>
-
-    <tbody>
+  <div class="pledge-table">
+      <div class="row header-row">
+        <div class="table-cell pledge"><div>Pledge #</div></div>
+        <div class="table-cell name"><div>Name</div></div>
+        <div class="table-cell age"><div>Age</div></div>
+        <div class="table-cell location"><div>Location</div></div>
+        <div class="table-cell favorite"><div>Favorite Brewer</div></div>
+        <div class="table-cell last-pee"><div>Last Time You Peed Your Pants</div></div>
+        <div class="table-cell memory"><div>County Stadium Memory</div></div>
+        <div class="table-cell best-part"><div>Best Part of Being a Brewers Fan</div></div>
+      </div>
       {{#pledges}}
-      <tr>
-        <td>{{@index}}<td>
-        <td>{{name}</td>
-        <td>{{age}}</td>
-        <td>{{location}}</td>
-        <td>{{favoriteBrewer}}</td>
-        <td>{{lastTimePeedPants}}</td>
-        <td>{{countyStadiumMemory}}</td>
-        <td>{{bestPartOfBrewersFan}}</td>
-      </tr>
+      <div class="row table-row">
+        <div class="table-cell pledge"><div>{{@index}}</div></div>
+        <div class="table-cell name"><div>{{name}}</div></div>
+        <div class="table-cell age"><div>{{age}}</div></div>
+        <div class="table-cell location"><div>{{location}}</div></div>
+        <div class="table-cell favorite"><div>{{favoriteBrewer}}</div></div>
+        <div class="table-cell last-pee"><div>{{lastTimePeedPants}}</div></div>
+        <div class="table-cell memory"><div>{{countyStadiumMemory}}</div></div>
+        <div class="table-cell best-part"><div>{{bestPartOfBrewersFan}}</div></div>
+      </div>
       {{/pledges}}
-    </tbody>
-  </ul>
+    </div>
+  </div>
 
 {{/content}}
 {{/layout}}

@@ -1,17 +1,42 @@
-table.pledge-table {
-  border-collapse: collapse;
-  max-width: 100%;
+.pledge-table {
+  display: table;
 }
 
-.pledge-table th {
+.pledge-table .row {
+  display: table-row;
+}
+
+.pledge-table .table-cell {
+  display: table-cell;
+  height: 100%;
+  vertical-align: top;
+}
+
+.pledge-table .table-cell.pledge    { width: 7%; min-width: 60px; }
+.pledge-table .table-cell.name      { width: 12%; }
+.pledge-table .table-cell.age       { width: 7%; }
+.pledge-table .table-cell.location  { width: 10%; }
+.pledge-table .table-cell.favorite  { width: 13%; }
+.pledge-table .table-cell.last-pee  { width: 17%; }
+.pledge-table .table-cell.memory    { width: 17%; }
+.pledge-table .table-cell.best-part { width: 17%; }
+
+.pledge-table .table-cell div {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.pledge-table .header-row {
   background-color: var(--classic-brewers-blue);
   color: var(--classic-brewers-yellow);
+  text-align: center;
 }
 
-.pledge-table tbody tr:nth-child(odd) {
+.pledge-table .table-row:nth-child(odd) {
   background-color: var(--classic-brewers-yellow);
 }
 
-.pledge-table tbody tr:nth-child(even) {
+.pledge-table .table-row:nth-child(even) {
   background-color: var(--classic-brewers-grey);
 }
